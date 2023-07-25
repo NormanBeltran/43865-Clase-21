@@ -31,9 +31,10 @@ def cursoForm(request):
 def cursoForm2(request):
     if request.method == "POST":   
         miForm = CursoForm(request.POST)
-        if miForm.is_valid:
-            informacion = miForm.cleaned_data
-            curso = Curso(nombre=informacion['nombre'], comision=informacion['comision'])
+        if miForm.is_valid():
+            curso_nombre = miForm.cleaned_data.get('nombre')
+            curso_comision = miForm.cleaned_data.get('comision')
+            curso = Curso(nombre=curso_nombre, comision=curso_comision)
             curso.save()
             return render(request, "aplicacion/base.html")
     else:
